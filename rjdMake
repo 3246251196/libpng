@@ -36,7 +36,7 @@ function create_amiga_SDK_package
 	mkdir -p "${sdk_dir}"
 	find "${INSTALL_PREFIX}" -type d -iname "$(basename ${sdk_dir})" -exec cp -r {}/. "${sdk_dir}" \;
     done
-    lha a libpng.lha local/
+    lha a libpng_1_6_39.lha local/
 
 }
 
@@ -49,8 +49,7 @@ function create_amiga_SDK_package
     --enable-static \
     CFLAGS="-mcrt=${C_LIB}" \
     CPPFLAGS="-mcrt=${C_LIB}" \
-    CXXFLAGS="-mcrt=${C_LIB}" \
-    LDFLAGS="-static -athread=native -mcrt=${C_LIB}"
+    LDFLAGS="-static -mcrt=${C_LIB}"
 
 make -j$(nproc) || { echo 1>&2 "ERROR: Failed to build LIBPNG" ; exit 1; }
 
@@ -58,6 +57,6 @@ make install
 
 create_amiga_SDK_package
 
-echo "FINISHED. See libpng.lha"
+echo "FINISHED. See libpng_1_6_39.lha"
 
 exit 0
